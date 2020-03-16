@@ -1,4 +1,4 @@
-package Model;
+package models;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ public class CustomerAccount {
 	
 	private int customerId;
 	
-	private int currentBalance;
+	private int currentBalance=1000;
 	
 	private ArrayList<Transaction> previousTransactions;
 

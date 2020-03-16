@@ -1,4 +1,4 @@
-package Model;
+package models;
 
 public class Customer {
 	
@@ -8,6 +8,7 @@ public class Customer {
 	private String customerAddress;
 	private int customerPhoneNumber;
 	private String customerPincode;
+	
 	public int getCustomerId() {
 		return customerId;
 	}

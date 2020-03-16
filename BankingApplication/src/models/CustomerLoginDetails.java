@@ -1,10 +1,11 @@
-package Model;
+package models;
 
 public class CustomerLoginDetails {
 	
 	private int customerId;
 	private String customerUserName;
 	private String customerPassword;
+	
 	public int getCustomerId() {
 		return customerId;
 	}
