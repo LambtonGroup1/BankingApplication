@@ -2,19 +2,22 @@ package models;
 
 public class Customer {
 	
-	private int customerId;
+	private int customerAccountNumber;
 	private String customerName;
 	private String customerEmail;
 	private String customerAddress;
 	private int customerPhoneNumber;
 	private String customerPincode;
 	
-	public int getCustomerId() {
-		return customerId;
+
+	
+	public int getCustomerAccountNumber() {
+		return customerAccountNumber;
 	}
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
+	public void setCustomerAccountNumber(int customerAccountNumber) {
+		this.customerAccountNumber = customerAccountNumber;
 	}
+	
 	public String getCustomerName() {
 		return customerName;
 	}

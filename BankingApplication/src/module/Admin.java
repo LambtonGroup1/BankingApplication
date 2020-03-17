@@ -1,63 +1,83 @@
 package module;
-import java.util.ArrayList;
+
 import java.util.Scanner;
-
-import javax.swing.JOptionPane;
-
+import data.ApplicationData;
 import models.Customer;
 
 public class Admin {
 
-	public static void main(String[] args) {
-		
-		
-	     String operationstr=JOptionPane.showInputDialog("Please select the operation you wish to perform\n1. Add the Cutomer\n2. Update the Customer\n3. Delete the Customer");
-	     
-	  
-	  switch(operationstr)
-      {
-    	  case "1": 
-    	  CustomerDetails();
-    	  break;
-      } 
+	public static boolean addCustomer(Scanner sc) {
+		Customer customer = new Customer();
+		String infoChoice = null;
+		do {
+
+			customer.setCustomerAccountNumber(Utils.Utils.getUniqueAccountNumber());
+
+			System.out.println("Please Enter the Customer Name");
+			customer.setCustomerName(sc.nextLine());
+
+			System.out.println("Please Enter the Customer Email");
+
+			customer.setCustomerEmail(sc.nextLine());
+
+			System.out.println("Please Enter the Customer Address :");
+
+			customer.setCustomerAddress(sc.nextLine());
+
+			System.out.println("Please Enter the Customer Phone Number :");
+
+			customer.setCustomerPhoneNumber(Integer.parseInt(sc.nextLine()));
+
+			System.out.println("Please enter the customer pincode: ");
+			customer.setCustomerPincode(sc.nextLine());
+
+			// add remaining info of customers
+
+			System.out.println("Do you want to confirm the below info (y/n):");
+			System.out.println("Customer Name:" + customer.getCustomerName());
+
+			infoChoice = sc.nextLine();
+		} while (infoChoice.equalsIgnoreCase("n"));
+
+		ApplicationData.customers.add(customer);
+		return true;
 	}
-	
-	public static void CustomerDetails()
-	  {
-		 String CustomerName;
-		 String CustomerEmail;
-		 String CustomerAddress;
-		 int CustomerPhoneNumber;
-		 String CustomerPincode;
-		 String CustomerPhoneNumberStr;
-		 String[] buttons = { "Yes", "No","Cancel" };
-		 ArrayList<Customer> customerinfo = new ArrayList<>();
-		  Customer cc=new Customer();
-		  CustomerName=JOptionPane.showInputDialog("Please Enter the Custonmer Name");
-		  cc.setCustomerName(CustomerName);
-		  CustomerEmail=JOptionPane.showInputDialog("Please Enter the Custonmer Email");
-		  cc.setCustomerEmail(CustomerEmail);
-		  CustomerAddress=JOptionPane.showInputDialog("Please Enter the Custonmer Address");
-		  cc.setCustomerAddress(CustomerAddress);
-		  CustomerPhoneNumberStr=JOptionPane.showInputDialog("Please Enter the Custonmer Phone Number");
-		  CustomerPhoneNumber=Integer.parseInt(CustomerPhoneNumberStr);
-		  cc.setCustomerPhoneNumber(CustomerPhoneNumber);
-		  CustomerPincode=JOptionPane.showInputDialog("Please Enter the Custonmer Pincode");
-		  cc.setCustomerPincode(CustomerPincode);
-		  int rc = JOptionPane.showOptionDialog(null, "Customer Name is : "+CustomerName+"\nCustomer Email is : "+CustomerEmail+"\nCustomer Address is : "+CustomerAddress+"\nCustomer Phone Number is : "+CustomerPhoneNumber+"\nCustomer Pincode is : "+CustomerPincode+"\n\nDo you confirm that the information is correct?", "Confirm",
-		        JOptionPane.WARNING_MESSAGE, 0, null, buttons, buttons[2]);
-		  if(rc==0)
-		  {
-		   customerinfo.add(cc);
-		   System.out.println(customerinfo);
+
+	public static boolean deleteCustomer(int customerAccountNumber) {
+
+		// if returns false, then could not find customerAccount
+
+		for (Customer customer : ApplicationData.customers) {
+
+			if (customer.getCustomerAccountNumber() == customerAccountNumber) {
+				ApplicationData.customers.remove(ApplicationData.customers.indexOf(customer));
+				return true;
+			}
+
+		}
+
+		return false;
+	}
+
+	public static void updateCustomer(int customerAccountNumber,Scanner sc){
+		
+		Customer customer=null;
+		
+		for (Customer cust : ApplicationData.customers) {
+
+			if (customer.getCustomerAccountNumber() == customerAccountNumber) {
+				customer=cust;
+			}
+
+		}
+			 
+		  System.out.println("Please Enter the Customer Name ["+customer.getCustomerName()+"] :");
+		  
+		  String customerName = sc.nextLine();
+				  
+		  if(customerName.length()>0){
+			  customer.setCustomerName(customerName);
 		  }
-		  else if(rc==1)
-		  {
-			  CustomerDetails(); 
-		  }
-		  else
-		  {
-			  JOptionPane.showMessageDialog(null, "Cancelled");
-		  }
-	  }		  
+			  
+	  }
 }

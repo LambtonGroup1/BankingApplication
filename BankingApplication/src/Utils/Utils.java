@@ -19,6 +19,18 @@ public class Utils {
 		
 	}
 	
+	public static int getUniqueAccountNumber(){
+		
+	    // It will generate 6 digit random Number.
+	    // from 0 to 999999
+	    Random rnd = new Random();
+	    int number = rnd.nextInt(9999);
+
+	    // this will convert any number sequence into 4 character.
+	    return Integer.parseInt(String.format("%04d", number));
+	
+	}
+	
 	public static String getDateTime(){
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
