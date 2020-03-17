@@ -1,29 +1,46 @@
 package models;
 
+import Utils.Utils;
+
 public class Transaction {
 	
 	private int transactionId;
 	
-	private int fromCustomerId;
+	private int fromCustomerNumber;
 	
-	private int toCustomerId;
+	private int toCustomerNumber;
 	
-	private int transactionAmount;
+	private float transactionAmount;
 	
 	private String transactionType;
 	
-	private int previousBalance;
+	private float previousBalance;
 	
-	private int currentBalance;
+	private float currentBalance;
 	
 	private String transactionDate;
 	
+	
+	public Transaction(int fromCustomerNumber,int toCustomerNumber,float transactionAmount,String transactionType,float previousBalance,float currentBalance){
+		
+		this.transactionId= Utils.getUniqueTransactionId();
+		this.toCustomerNumber=toCustomerNumber;
+		this.fromCustomerNumber=fromCustomerNumber;
+		this.transactionAmount=transactionAmount;
+		this.transactionType=transactionType;
+		this.previousBalance=previousBalance;
+		this.currentBalance=currentBalance;
+		this.transactionDate=Utils.getDateTime();
+		
+		
+	}
+	
 
-	public int getTransactionAmount() {
+	public float getTransactionAmount() {
 		return transactionAmount;
 	}
 
-	public void setTransactionAmount(int transactionAmount) {
+	public void setTransactionAmount(float transactionAmount) {
 		this.transactionAmount = transactionAmount;
 	}
 
@@ -44,21 +61,20 @@ public class Transaction {
 	}
 
 	public int getFromCustomerId() {
-		return fromCustomerId;
+		return fromCustomerNumber;
 	}
 
-	public void setFromCustomerId(int fromCustomerId) {
-		this.fromCustomerId = fromCustomerId;
+	public void setFromCustomerId(int fromCustomerNumber) {
+		this.fromCustomerNumber = fromCustomerNumber;
 	}
 
 	public int getToCustomerId() {
-		return toCustomerId;
+		return toCustomerNumber;
 	}
 
-	public void setToCustomerId(int toCustomerId) {
-		this.toCustomerId = toCustomerId;
+	public void setToCustomerId(int toCustomerNumber) {
+		this.toCustomerNumber = toCustomerNumber;
 	}
-
 
 
 	public String getTransactionType() {
@@ -69,21 +85,28 @@ public class Transaction {
 		this.transactionType = transactionType;
 	}
 
-	public int getPreviousBalance() {
+
+	public float getPreviousBalance() {
 		return previousBalance;
 	}
 
-	public void setPreviousBalance(int previousBalance) {
+
+	public void setPreviousBalance(float previousBalance) {
 		this.previousBalance = previousBalance;
 	}
 
-	public int getCurrentBalance() {
+
+	public float getCurrentBalance() {
 		return currentBalance;
 	}
 
-	public void setCurrentBalance(int currentBalance) {
+
+	public void setCurrentBalance(float currentBalance) {
 		this.currentBalance = currentBalance;
 	}
+
+
+	
 	
 	
 	

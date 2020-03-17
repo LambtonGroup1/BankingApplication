@@ -6,9 +6,19 @@ public class CustomerAccount {
 	
 	private int customerId;
 	
-	private int currentBalance=1000;
+	private int accountNumber;
+	
+	private float currentBalance=1000f;
 	
 	private ArrayList<Transaction> previousTransactions;
+
+	public int getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(int accountNumber) {
+		this.accountNumber = accountNumber;
+	}
 
 	public int getCustomerId() {
 		return customerId;
@@ -18,11 +28,11 @@ public class CustomerAccount {
 		this.customerId = customerId;
 	}
 
-	public int getCurrentBalance() {
+	public float getCurrentBalance() {
 		return currentBalance;
 	}
 
-	public void setCurrentBalance(int currentBalance) {
+	public void setCurrentBalance(float currentBalance) {
 		this.currentBalance = currentBalance;
 	}
 
