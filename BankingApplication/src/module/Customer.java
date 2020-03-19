@@ -1,6 +1,7 @@
 package module;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import data.ApplicationData;
 import models.CustomerAccount;
@@ -23,10 +24,23 @@ public class Customer {
 		return (float) 0;
 	}
 
-	public static boolean transferFunds(int toCustomerAccountNumber, int fromCustomerAccountNumber, float amount) {
+	public static boolean transferFunds(Scanner sc) {
 		
 		//if returns false, information given was invalid
+		
+		int toCustomerAccountNumber; float amount;
+		
+		System.out.println("Please enter the beneficiary account number: ");
+		toCustomerAccountNumber=sc.nextInt();
+		sc.nextLine();
+		
+		System.out.println("Please enter the amount: ");
+		amount = sc.nextFloat();
+		sc.nextLine();
+		
 
+		int fromCustomerAccountNumber=Utils.Utils.customerSessionObj.getCustomerAccountNumber();
+				
 		CustomerAccount toAcc = null;
 
 		CustomerAccount fromAcc = null;

@@ -8,6 +8,7 @@ public class CustomerAccount {
 	
 	private int accountNumber;
 	
+	//default 1000 dollars
 	private float currentBalance=1000f;
 	
 	private ArrayList<Transaction> previousTransactions;
