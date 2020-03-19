@@ -6,6 +6,7 @@ import java.util.Scanner;
 import Utils.Utils;
 import data.ApplicationData;
 import models.CustomerAccount;
+import models.LoginDetails;
 
 public class BankingApplication {
 
@@ -32,7 +33,7 @@ public class BankingApplication {
 			switch (choice) {
 
 			case "1":
-				
+
 				System.out.println("Username: ");
 				String userName = sc.nextLine();
 
@@ -42,8 +43,8 @@ public class BankingApplication {
 
 				String password = pwd.toString();
 
-				if (Utils.checkLogin("admin", userName, password)) {
-				
+				if (Utils.checkLogin("admin", userName, password,sc)) {
+
 					System.out.println("Admin Menu:");
 					System.out.println("1. Add Customer");
 					System.out.println("2. Delete Customer");
@@ -54,10 +55,7 @@ public class BankingApplication {
 					switch (adminChoice) {
 					case "1":
 						module.Admin.addCustomer(sc);
-						//add CustomerAccount objec whenever we create a new customer.
-						CustomerAccount custAcc = new CustomerAccount();
-						ApplicationData.customerAccountData.add(custAcc);
-						
+
 						break;
 					case "2":
 						System.out.println("Please enter the customer account number: ");
@@ -72,13 +70,13 @@ public class BankingApplication {
 						module.Admin.updateCustomer(accountNumberForUpdation, sc);
 						break;
 					}
-				}else{
+				} else {
 					System.out.println("Please enter valid credentials.");
 				}
-				
+
 				break;
 			case "2":
-				
+
 				System.out.println("Account Number: ");
 				String customerUserName = sc.nextLine();
 
@@ -87,19 +85,20 @@ public class BankingApplication {
 				char[] temp_pwd = cnsl2.readPassword("Password: ");
 
 				String customerPassword = temp_pwd.toString();
-				
+
 				boolean validUser = false;
 				for (int i = 0; i < 3; i++) {
-					if (Utils.checkLogin("customer",customerUserName,customerPassword)) {
+					if (Utils.checkLogin("customer", customerUserName, customerPassword,sc)) {
 						validUser = true;
 						break;
 					}
 				}
 
 				if (validUser) {
+
+					Utils.customerSessionObj = Utils.loadCustomerData(customerUserName);
 					
-					Utils.customerSessionObj=Utils.loadCustomerData(customerUserName);
-					
+
 					System.out.println("Customer Menu:");
 					System.out.println("1. Check Balance");
 					System.out.println("2. Transfer Funds");
@@ -124,8 +123,9 @@ public class BankingApplication {
 						module.Customer.getTransactionDetails(accountNumberForTransaction);
 						break;
 					}
-				}else{
-					System.out.println("Max retries reached. Your account has been locked. Please contact the Administration.");
+				} else {
+					System.out.println(
+							"Max retries reached. Your account has been locked. Please contact the Administration.");
 				}
 
 				break;
