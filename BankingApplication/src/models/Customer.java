@@ -6,7 +6,7 @@ public class Customer {
 	private String customerName;
 	private String customerEmail;
 	private String customerAddress;
-	private int customerPhoneNumber;
+	private long customerPhoneNumber;
 	private String customerPincode;
 	
 
@@ -36,10 +36,11 @@ public class Customer {
 	public void setCustomerAddress(String customerAddress) {
 		this.customerAddress = customerAddress;
 	}
-	public int getCustomerPhoneNumber() {
+	
+	public long getCustomerPhoneNumber() {
 		return customerPhoneNumber;
 	}
-	public void setCustomerPhoneNumber(int customerPhoneNumber) {
+	public void setCustomerPhoneNumber(long customerPhoneNumber) {
 		this.customerPhoneNumber = customerPhoneNumber;
 	}
 	public String getCustomerPincode() {

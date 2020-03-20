@@ -95,10 +95,12 @@ public class Utils {
 
 			for (LoginDetails logindetails : ApplicationData.customerLoginDetails) {
 
-				if (logindetails.isTemp()) {
-					changeTempPassword(logindetails,sc);
-				} else {
+				
 					if (logindetails.getAccountNumber() == accountNumber) {
+						if (logindetails.isTemp()) {
+							changeTempPassword(logindetails,sc);
+							return false;
+						} else {
 						if (logindetails.getPassword() == password) {
 							return true;
 						}
@@ -127,6 +129,7 @@ public class Utils {
 			if (currentPassword.equals(loginDetails.getPassword())) {
 				if(newPassword.equals(confirmPassword)){
 					ApplicationData.customerLoginDetails.get(ApplicationData.customerLoginDetails.indexOf(loginDetails)).setPassword(confirmPassword);
+					ApplicationData.customerLoginDetails.get(ApplicationData.customerLoginDetails.indexOf(loginDetails)).setTemp(false);
 					System.out.println("Password changed successfully!");
 					break;
 				}
@@ -157,9 +160,6 @@ public class Utils {
 
 			int rndCharAt = random.nextInt(PASSWORD_ALLOW.length());
 			char rndChar = PASSWORD_ALLOW.charAt(rndCharAt);
-
-			// debug
-			System.out.format("%d\t:\t%c%n", rndCharAt, rndChar);
 
 			sb.append(rndChar);
 

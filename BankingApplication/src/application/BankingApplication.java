@@ -16,8 +16,7 @@ public class BankingApplication {
 
 		ApplicationData appData = new ApplicationData();
 
-		// initialize scanner object. This single object will be used for all
-		// the modules.
+		// initialize scanner object. This single object will be used for all the modules.
 		Scanner sc = new Scanner(System.in);
 
 		String ch = null;
@@ -34,14 +33,12 @@ public class BankingApplication {
 
 			case "1":
 
-				System.out.println("Username: ");
+				System.out.println("Username : ");
 				String userName = sc.nextLine();
 
-				Console cnsl = System.console();
+				System.out.println("Password : ");
 
-				char[] pwd = cnsl.readPassword("Password: ");
-
-				String password = pwd.toString();
+				String password = sc.nextLine();
 
 				if (Utils.checkLogin("admin", userName, password,sc)) {
 

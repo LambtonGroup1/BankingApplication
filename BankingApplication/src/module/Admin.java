@@ -26,7 +26,7 @@ public class Admin {
 			customer.setCustomerAddress(sc.nextLine());
 
 			System.out.println("Please Enter the Customer Phone Number :");
-			customer.setCustomerPhoneNumber(Integer.parseInt(sc.nextLine()));
+			customer.setCustomerPhoneNumber(Long.parseLong(sc.nextLine()));
 
 			System.out.println("Please enter the customer pincode: ");
 			customer.setCustomerPincode(sc.nextLine());
@@ -68,6 +68,7 @@ public class Admin {
 
 			if (customer.getCustomerAccountNumber() == customerAccountNumber) {
 				ApplicationData.customers.remove(ApplicationData.customers.indexOf(customer));
+				System.out.println("Customer ("+customerAccountNumber+") deleted successfully!");
 				return true;
 			}
 
@@ -81,8 +82,9 @@ public class Admin {
 		Customer customer = null;
 
 		for (Customer cust : ApplicationData.customers) {
+			
 
-			if (customer.getCustomerAccountNumber() == customerAccountNumber) {
+			if (cust.getCustomerAccountNumber() == customerAccountNumber) {
 				customer = cust;
 			}
 
@@ -93,7 +95,7 @@ public class Admin {
 		if (customerName.length() > 0) {
 			customer.setCustomerName(customerName);
 		}
-		System.out.println("Please Enter the Customer Email [" + customer.getCustomerName() + "] :");
+		System.out.println("Please Enter the Customer Email [" + customer.getCustomerEmail() + "] :");
 		String CustomerEmail = sc.nextLine();
 		if (CustomerEmail.length() > 0) {
 			customer.setCustomerEmail(CustomerEmail);
@@ -105,9 +107,9 @@ public class Admin {
 		}
 		System.out.println("Please Enter the Customer Phone Number [" + customer.getCustomerPhoneNumber() + "] :");
 		String phonenumber = sc.nextLine();
-		int CustomerPhoneNumber = Integer.parseInt(phonenumber);
+		
 		if (phonenumber.length() > 0) {
-			customer.setCustomerPhoneNumber(CustomerPhoneNumber);
+			customer.setCustomerPhoneNumber(Long.parseLong(phonenumber));
 		}
 		System.out.println("Please enter the customer pincode [" + customer.getCustomerPincode() + "] :");
 		String CustomerPincode = sc.nextLine();
