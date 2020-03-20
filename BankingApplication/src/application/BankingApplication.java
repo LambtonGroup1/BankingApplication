@@ -2,11 +2,8 @@ package application;
 
 import java.io.Console;
 import java.util.Scanner;
-
 import Utils.Utils;
 import data.ApplicationData;
-import models.CustomerAccount;
-import models.LoginDetails;
 
 public class BankingApplication {
 
@@ -16,8 +13,10 @@ public class BankingApplication {
 
 		ApplicationData appData = new ApplicationData();
 
-		// initialize scanner object. This single object will be used for all the modules.
+		// initialize scanner object. This single object will be used for all
+		// the modules.
 		Scanner sc = new Scanner(System.in);
+		Console console = System.console();
 
 		String ch = null;
 
@@ -36,37 +35,40 @@ public class BankingApplication {
 				System.out.println("Username : ");
 				String userName = sc.nextLine();
 
-				System.out.println("Password : ");
+				char[] pass = console.readPassword("Enter password");
+				String password = pass.toString();
 
-				String password = sc.nextLine();
+				if (Utils.checkLogin("admin", userName, password, sc)) {
+					String adminContinue = null;
+					do {
+						System.out.println("Admin Menu:");
+						System.out.println("1. Add Customer");
+						System.out.println("2. Delete Customer");
+						System.out.println("3. Update Customer");
+						System.out.println("Please enter your choice: ");
+						String adminChoice = sc.nextLine();
 
-				if (Utils.checkLogin("admin", userName, password,sc)) {
+						switch (adminChoice) {
+						case "1":
+							module.Admin.addCustomer(sc);
 
-					System.out.println("Admin Menu:");
-					System.out.println("1. Add Customer");
-					System.out.println("2. Delete Customer");
-					System.out.println("3. Update Customer");
-					System.out.println("Please enter your choice: ");
-					String adminChoice = sc.nextLine();
-
-					switch (adminChoice) {
-					case "1":
-						module.Admin.addCustomer(sc);
-
-						break;
-					case "2":
-						System.out.println("Please enter the customer account number: ");
-						int accountNumberForDeletion = sc.nextInt();
-						sc.nextLine();
-						module.Admin.deleteCustomer(accountNumberForDeletion);
-						break;
-					case "3":
-						System.out.println("Please enter the customer account number: ");
-						int accountNumberForUpdation = sc.nextInt();
-						sc.nextLine();
-						module.Admin.updateCustomer(accountNumberForUpdation, sc);
-						break;
-					}
+							break;
+						case "2":
+							System.out.println("Please enter the customer account number: ");
+							int accountNumberForDeletion = sc.nextInt();
+							sc.nextLine();
+							module.Admin.deleteCustomer(accountNumberForDeletion);
+							break;
+						case "3":
+							System.out.println("Please enter the customer account number: ");
+							int accountNumberForUpdation = sc.nextInt();
+							sc.nextLine();
+							module.Admin.updateCustomer(accountNumberForUpdation, sc);
+							break;
+						}
+						System.out.println("Do you want to continue(y/n) : ");
+						adminContinue = sc.nextLine();
+					} while (adminContinue.equalsIgnoreCase("y"));
 				} else {
 					System.out.println("Please enter valid credentials.");
 				}
@@ -77,15 +79,12 @@ public class BankingApplication {
 				System.out.println("Account Number: ");
 				String customerUserName = sc.nextLine();
 
-				Console cnsl2 = System.console();
-
-				char[] temp_pwd = cnsl2.readPassword("Password: ");
-
-				String customerPassword = temp_pwd.toString();
+				char[] custPass = console.readPassword("Enter password");
+				String customerPassword = custPass.toString();
 
 				boolean validUser = false;
 				for (int i = 0; i < 3; i++) {
-					if (Utils.checkLogin("customer", customerUserName, customerPassword,sc)) {
+					if (Utils.checkLogin("customer", customerUserName, customerPassword, sc)) {
 						validUser = true;
 						break;
 					}
@@ -94,32 +93,35 @@ public class BankingApplication {
 				if (validUser) {
 
 					Utils.customerSessionObj = Utils.loadCustomerData(customerUserName);
-					
+					String customerContinue = null;
+					do {
+						System.out.println("Customer Menu:");
+						System.out.println("1. Check Balance");
+						System.out.println("2. Transfer Funds");
+						System.out.println("3. View Previous Transactions");
+						String customerChoice = sc.nextLine();
 
-					System.out.println("Customer Menu:");
-					System.out.println("1. Check Balance");
-					System.out.println("2. Transfer Funds");
-					System.out.println("3. View Previous Transactions");
-					String customerChoice = sc.nextLine();
+						switch (customerChoice) {
+						case "1":
+							System.out.println("Please enter your account number: ");
+							int accountNumberForBalance = sc.nextInt();
+							sc.nextLine();
+							module.Customer.getCustomerBalance(accountNumberForBalance);
+							break;
+						case "2":
+							module.Customer.transferFunds(sc);
+							break;
+						case "3":
+							System.out.println("Please enter your account number: ");
+							int accountNumberForTransaction = sc.nextInt();
+							sc.nextLine();
 
-					switch (customerChoice) {
-					case "1":
-						System.out.println("Please enter your account number: ");
-						int accountNumberForBalance = sc.nextInt();
-						sc.nextLine();
-						module.Customer.getCustomerBalance(accountNumberForBalance);
-						break;
-					case "2":
-						module.Customer.transferFunds(sc);
-						break;
-					case "3":
-						System.out.println("Please enter your account number: ");
-						int accountNumberForTransaction = sc.nextInt();
-						sc.nextLine();
-
-						module.Customer.getTransactionDetails(accountNumberForTransaction);
-						break;
-					}
+							module.Customer.getTransactionDetails(accountNumberForTransaction);
+							break;
+						}
+						System.out.println("Do you want to continue(y/n) : ");
+						customerContinue = sc.nextLine();
+					} while (customerContinue.equalsIgnoreCase("y"));
 				} else {
 					System.out.println(
 							"Max retries reached. Your account has been locked. Please contact the Administration.");
