@@ -18,7 +18,8 @@ public class Admin {
 
 			System.out.println("Please Enter the Customer Name");
 			customer.setCustomerName(sc.nextLine());
-
+			customer.setCustomerName(sc.nextLine());
+			
 			System.out.println("Please Enter the Customer Email");
 			customer.setCustomerEmail(sc.nextLine());
 
