@@ -35,8 +35,11 @@ public class BankingApplication {
 				System.out.println("Username : ");
 				String userName = sc.nextLine();
 
-				char[] pass = console.readPassword("Enter password");
-				String password = pass.toString();
+				
+				//char[] pass = console.readPassword("Enter password");
+				//String password = pass.toString();
+				System.out.println("Password: ");
+				String password=sc.nextLine();
 
 				if (Utils.checkLogin("admin", userName, password, sc)) {
 					String adminContinue = null;
@@ -65,6 +68,9 @@ public class BankingApplication {
 							sc.nextLine();
 							module.Admin.updateCustomer(accountNumberForUpdation, sc);
 							break;
+						default:
+							System.out.println("Please enter valid input.");
+							break;
 						}
 						System.out.println("Do you want to continue(y/n) : ");
 						adminContinue = sc.nextLine();
@@ -79,12 +85,17 @@ public class BankingApplication {
 				System.out.println("Account Number: ");
 				String customerUserName = sc.nextLine();
 
-				char[] custPass = console.readPassword("Enter password");
-				String customerPassword = custPass.toString();
+				
+				//char[] custPass = console.readPassword("Enter password");
+				//String customerPassword = custPass.toString();
+				System.out.println("Password: ");
+				String customerPassword=sc.nextLine();
 
 				boolean validUser = false;
 				for (int i = 0; i < 3; i++) {
-					if (Utils.checkLogin("customer", customerUserName, customerPassword, sc)) {
+					boolean flag=Utils.checkLogin("customer", customerUserName, customerPassword, sc);
+					System.out.println(flag);
+					if (flag) {
 						validUser = true;
 						break;
 					}
@@ -117,6 +128,9 @@ public class BankingApplication {
 							sc.nextLine();
 
 							module.Customer.getTransactionDetails(accountNumberForTransaction);
+							break;
+						default:
+							System.out.println("Please enter valid choice.");
 							break;
 						}
 						System.out.println("Do you want to continue(y/n) : ");
