@@ -102,7 +102,7 @@ public class BankingApplication {
 				}
 
 				if (validUser) {
-
+					//if user is valid, proceed.
 					Utils.customerSessionObj = Utils.loadCustomerData(customerUserName);
 					String customerContinue = null;
 					do {
