@@ -14,7 +14,7 @@ public class Customer {
 		// if returns 0, then could not find the customer in the database
 
 		for (CustomerAccount custAcc : ApplicationData.customerAccountData) {
-
+		
 			if (custAcc.getAccountNumber() == accountNumber) {
 				return custAcc.getCurrentBalance();
 			}
@@ -65,37 +65,43 @@ public class Customer {
 
 		}
 
-		if (fromAcc.getCustomerId() == fromCustomerAccountNumber) {
+		if (fromAcc.getAccountNumber() == fromCustomerAccountNumber) {
+			
+			float fromCurrentBalance=fromAcc.getCurrentBalance();
 
-			if (fromAcc.getCurrentBalance() >= amount) {
+			if ( fromCurrentBalance>= amount) {
 
 				float toUpdatedBalance = toAcc.getCurrentBalance() + amount;
+				
+				// add transaction details in receiver
+				Transaction toAccTransaction = new Transaction(fromCustomerAccountNumber, toCustomerAccountNumber, amount,
+						"credit", toAcc.getCurrentBalance(), toUpdatedBalance);
 
 				// credit the amount to receiver
 				ApplicationData.customerAccountData.get(ApplicationData.customerAccountData.indexOf(toAcc))
 						.setCurrentBalance(toUpdatedBalance);
+				
+				ApplicationData.customerAccountData.get(ApplicationData.customerAccountData.indexOf(toAcc))
+				.getPreviousTransactions().add(toAccTransaction);
 
 				// debit the amount from sender
 				float fromUpdatedBalance = fromAcc.getCurrentBalance() - amount;
+				// add transaction details in sender.
+				Transaction fromAccTransaction = new Transaction(fromCustomerAccountNumber, toCustomerAccountNumber, amount,
+						"debit", fromCurrentBalance,fromUpdatedBalance);
+				
 				ApplicationData.customerAccountData.get(ApplicationData.customerAccountData.indexOf(fromAcc))
 						.setCurrentBalance(fromUpdatedBalance);
 
-				// add transaction details in receiver
-				Transaction transaction = new Transaction(fromCustomerAccountNumber, toCustomerAccountNumber, amount,
-						"credit", toAcc.getCurrentBalance(), toUpdatedBalance);
-
-				ApplicationData.customerAccountData.get(ApplicationData.customerAccountData.indexOf(toAcc))
-						.getPreviousTransactions().add(transaction);
-
-				// add transaction details in sender.
-				transaction.setTransactionType("debit");
-				transaction.setCurrentBalance(fromUpdatedBalance);
-				transaction.setPreviousBalance(fromAcc.getCurrentBalance());
-
 				ApplicationData.customerAccountData.get(ApplicationData.customerAccountData.indexOf(fromAcc))
-						.getPreviousTransactions().add(transaction);
+						.getPreviousTransactions().add(fromAccTransaction);
 
+				System.out.println("Transaction successful!");
+				System.out.println("Your current balance is : "+fromUpdatedBalance);
 				return true;
+			}else{
+				System.out.println("You do not have sufficient funds!");
+				return false;
 			}
 		}
 

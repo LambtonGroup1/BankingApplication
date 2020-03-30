@@ -3,38 +3,52 @@ package models;
 import Utils.Utils;
 
 public class Transaction {
-	
+
 	private int transactionId;
-	
+
 	private int fromCustomerNumber;
-	
+
 	private int toCustomerNumber;
-	
+
 	private float transactionAmount;
-	
+
 	private String transactionType;
-	
+
 	private float previousBalance;
-	
+
 	private float currentBalance;
-	
+
 	private String transactionDate;
-	
-	
-	public Transaction(int fromCustomerNumber,int toCustomerNumber,float transactionAmount,String transactionType,float previousBalance,float currentBalance){
-		
-		this.transactionId= Utils.getUniqueTransactionId();
-		this.toCustomerNumber=toCustomerNumber;
-		this.fromCustomerNumber=fromCustomerNumber;
-		this.transactionAmount=transactionAmount;
-		this.transactionType=transactionType;
-		this.previousBalance=previousBalance;
-		this.currentBalance=currentBalance;
-		this.transactionDate=Utils.getDateTime();
-		
-		
+
+	public Transaction(int fromCustomerNumber, int toCustomerNumber,float transactionAmount, String transactionType, float previousBalance,
+			float currentBalance) {
+
+		this.transactionId = Utils.getUniqueTransactionId();
+		this.toCustomerNumber = toCustomerNumber;
+		this.fromCustomerNumber = fromCustomerNumber;
+		this.transactionAmount = transactionAmount;
+		this.transactionType = transactionType;
+		this.previousBalance = previousBalance;
+		this.currentBalance = currentBalance;
+		this.transactionDate = Utils.getDateTime();
+
 	}
-	
+
+	public int getFromCustomerNumber() {
+		return fromCustomerNumber;
+	}
+
+	public void setFromCustomerNumber(int fromCustomerNumber) {
+		this.fromCustomerNumber = fromCustomerNumber;
+	}
+
+	public int getToCustomerNumber() {
+		return toCustomerNumber;
+	}
+
+	public void setToCustomerNumber(int toCustomerNumber) {
+		this.toCustomerNumber = toCustomerNumber;
+	}
 
 	public float getTransactionAmount() {
 		return transactionAmount;
@@ -68,15 +82,6 @@ public class Transaction {
 		this.fromCustomerNumber = fromCustomerNumber;
 	}
 
-	public int getToCustomerId() {
-		return toCustomerNumber;
-	}
-
-	public void setToCustomerId(int toCustomerNumber) {
-		this.toCustomerNumber = toCustomerNumber;
-	}
-
-
 	public String getTransactionType() {
 		return transactionType;
 	}
@@ -85,31 +90,20 @@ public class Transaction {
 		this.transactionType = transactionType;
 	}
 
-
 	public float getPreviousBalance() {
 		return previousBalance;
 	}
-
 
 	public void setPreviousBalance(float previousBalance) {
 		this.previousBalance = previousBalance;
 	}
 
-
 	public float getCurrentBalance() {
 		return currentBalance;
 	}
 
-
 	public void setCurrentBalance(float currentBalance) {
 		this.currentBalance = currentBalance;
 	}
-
-
-	
-	
-	
-	
-	
 
 }

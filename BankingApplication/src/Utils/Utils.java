@@ -66,10 +66,9 @@ public class Utils {
 
 	public static boolean checkLogin(String userType, String userName, String password, Scanner sc) {
 		// TODO Auto-generated method stub
+		if (userType.equalsIgnoreCase("admin")) {
 
-		if (userName.length() > 0 && password.length() > 0) {
-
-			if (userType.equalsIgnoreCase("admin")) {
+			if (userName.length() > 0 && password.length() > 0) {
 
 				if (userName.equalsIgnoreCase(Configurations.adminUserName1)) {
 
@@ -93,17 +92,16 @@ public class Utils {
 
 		} else if (userType.equalsIgnoreCase("customer")) {
 
-			// here username is accoutnumber
+			// here user name is account number
 			int accountNumber = Integer.parseInt(userName);
 
 			for (LoginDetails logindetails : ApplicationData.customerLoginDetails) {
-
 				if (logindetails.getAccountNumber() == accountNumber) {
 					if (logindetails.isTemp()) {
 						changeTempPassword(logindetails, sc);
-						return false;
+						return true;
 					} else {
-						if (logindetails.getPassword() == password) {
+						if (logindetails.getPassword().equals(password)) {
 							return true;
 						}
 					}
@@ -117,6 +115,8 @@ public class Utils {
 	private static void changeTempPassword(LoginDetails loginDetails, Scanner sc) {
 		String newPassword = null;
 		String confirmPassword = null;
+
+		System.out.println("In change temp password!");
 
 		do {
 			System.out.println("Current Password : ");
@@ -136,6 +136,8 @@ public class Utils {
 							.setTemp(false);
 					System.out.println("Password changed successfully!");
 					break;
+				} else {
+					System.out.println("Paswords do not match!");
 				}
 			}
 		} while (newPassword.equals(confirmPassword));

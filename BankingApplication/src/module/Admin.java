@@ -18,7 +18,6 @@ public class Admin {
 
 			System.out.println("Please Enter the Customer Name");
 			customer.setCustomerName(sc.nextLine());
-			customer.setCustomerName(sc.nextLine());
 			
 			System.out.println("Please Enter the Customer Email");
 			customer.setCustomerEmail(sc.nextLine());
@@ -51,6 +50,14 @@ public class Admin {
 		loginDetails.setAccountNumber(accountNumber);
 		
 		loginDetails.setPassword(Utils.Utils.generateRandomPassword(10));
+		
+		
+		// Add customer account object to arraylist
+		CustomerAccount customerAccount = new CustomerAccount();
+		
+		customerAccount.setAccountNumber(accountNumber);
+		
+		ApplicationData.customerAccountData.add(customerAccount);
 		
 		//send email to customer
 		Utils.EmailUtil.sendFromGMail(customer.getCustomerEmail(),loginDetails);

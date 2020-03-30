@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class CustomerAccount {
 	
-	private int customerId;
 	
 	private int accountNumber;
 	
@@ -12,6 +11,10 @@ public class CustomerAccount {
 	private float currentBalance=1000f;
 	
 	private ArrayList<Transaction> previousTransactions;
+	
+	public CustomerAccount(){
+		previousTransactions = new ArrayList<>();
+	}
 
 	public int getAccountNumber() {
 		return accountNumber;
@@ -21,13 +24,6 @@ public class CustomerAccount {
 		this.accountNumber = accountNumber;
 	}
 
-	public int getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
 
 	public float getCurrentBalance() {
 		return currentBalance;
