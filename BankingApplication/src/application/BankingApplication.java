@@ -1,10 +1,7 @@
 package application;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import javax.security.auth.login.LoginContext;
 
 import Utils.Utils;
 import data.ApplicationData;
@@ -19,12 +16,17 @@ public class BankingApplication {
 
 		// initialize the arraylists used for the data storage
 
-		ApplicationData appData = new ApplicationData();
+		try {
+			@SuppressWarnings("unused")
+			ApplicationData appData = new ApplicationData();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		// initialize scanner object. This single object will be used for all
 		// the modules.
 		Scanner sc = new Scanner(System.in);
-		Console console = System.console();
 
 		// temp data 1 for testing
 		Customer tempCust = new Customer();
@@ -40,8 +42,8 @@ public class BankingApplication {
 
 		LoginDetails tempDetails = new LoginDetails();
 		tempDetails.setAccountNumber(1234);
-		tempDetails.setPassword("Bank@1234");
-		tempDetails.setTemp(false);
+		tempDetails.setPassword("$57*90");
+		tempDetails.setTemp(true);
 
 		CustomerAccount customerAccount = new CustomerAccount();
 
@@ -107,6 +109,7 @@ public class BankingApplication {
 						System.out.println("1. Add Customer");
 						System.out.println("2. Delete Customer");
 						System.out.println("3. Update Customer");
+						System.out.println("4. Logout");
 						System.out.println("Please enter your choice: ");
 						String adminChoice = sc.nextLine();
 
@@ -126,6 +129,8 @@ public class BankingApplication {
 							int accountNumberForUpdation = sc.nextInt();
 							sc.nextLine();
 							module.Admin.updateCustomer(accountNumberForUpdation, sc);
+							break;
+						case "4":
 							break;
 						default:
 							System.out.println("Please enter valid input.");
@@ -176,6 +181,7 @@ public class BankingApplication {
 						System.out.println("1. Check Balance");
 						System.out.println("2. Transfer Funds");
 						System.out.println("3. View Previous Transactions");
+						System.out.println("4. Logout");
 						System.out.println("Please enter your choice: ");
 						String customerChoice = sc.nextLine();
 
@@ -216,6 +222,9 @@ public class BankingApplication {
 								System.out.println("\n\n");
 							}
 
+							break;
+						
+						case "4":
 							break;
 						default:
 							System.out.println("Please enter valid choice.");

@@ -14,7 +14,7 @@ public class Customer {
 		// if returns 0, then could not find the customer in the database
 
 		for (CustomerAccount custAcc : ApplicationData.customerAccountData) {
-		
+
 			if (custAcc.getAccountNumber() == accountNumber) {
 				return custAcc.getCurrentBalance();
 			}
@@ -25,22 +25,22 @@ public class Customer {
 	}
 
 	public static boolean transferFunds(Scanner sc) {
-		
-		//if returns false, information given was invalid
-		
-		int toCustomerAccountNumber; float amount;
-		
+
+		// if returns false, information given was invalid
+
+		int toCustomerAccountNumber;
+		float amount;
+
 		System.out.println("Please enter the beneficiary account number: ");
-		toCustomerAccountNumber=sc.nextInt();
+		toCustomerAccountNumber = sc.nextInt();
 		sc.nextLine();
-		
+
 		System.out.println("Please enter the amount: ");
 		amount = sc.nextFloat();
 		sc.nextLine();
-		
 
-		int fromCustomerAccountNumber=Utils.Utils.customerSessionObj.getCustomerAccountNumber();
-				
+		int fromCustomerAccountNumber = Utils.Utils.customerSessionObj.getCustomerAccountNumber();
+
 		CustomerAccount toAcc = null;
 
 		CustomerAccount fromAcc = null;
@@ -64,65 +64,68 @@ public class Customer {
 			}
 
 		}
+		if (toAcc != null) {
 
-		if (fromAcc.getAccountNumber() == fromCustomerAccountNumber) {
-			
-			float fromCurrentBalance=fromAcc.getCurrentBalance();
+			if (fromAcc.getAccountNumber() == fromCustomerAccountNumber) {
 
-			if ( fromCurrentBalance>= amount) {
+				float fromCurrentBalance = fromAcc.getCurrentBalance();
 
-				float toUpdatedBalance = toAcc.getCurrentBalance() + amount;
-				
-				// add transaction details in receiver
-				Transaction toAccTransaction = new Transaction(fromCustomerAccountNumber, toCustomerAccountNumber, amount,
-						"credit", toAcc.getCurrentBalance(), toUpdatedBalance);
+				if (fromCurrentBalance >= amount) {
 
-				// credit the amount to receiver
-				ApplicationData.customerAccountData.get(ApplicationData.customerAccountData.indexOf(toAcc))
-						.setCurrentBalance(toUpdatedBalance);
-				
-				ApplicationData.customerAccountData.get(ApplicationData.customerAccountData.indexOf(toAcc))
-				.getPreviousTransactions().add(toAccTransaction);
+					float toUpdatedBalance = toAcc.getCurrentBalance() + amount;
 
-				// debit the amount from sender
-				float fromUpdatedBalance = fromAcc.getCurrentBalance() - amount;
-				// add transaction details in sender.
-				Transaction fromAccTransaction = new Transaction(fromCustomerAccountNumber, toCustomerAccountNumber, amount,
-						"debit", fromCurrentBalance,fromUpdatedBalance);
-				
-				ApplicationData.customerAccountData.get(ApplicationData.customerAccountData.indexOf(fromAcc))
-						.setCurrentBalance(fromUpdatedBalance);
+					// add transaction details in receiver
+					Transaction toAccTransaction = new Transaction(fromCustomerAccountNumber, toCustomerAccountNumber,
+							amount, "credit", toAcc.getCurrentBalance(), toUpdatedBalance);
 
-				ApplicationData.customerAccountData.get(ApplicationData.customerAccountData.indexOf(fromAcc))
-						.getPreviousTransactions().add(fromAccTransaction);
+					// credit the amount to receiver
+					ApplicationData.customerAccountData.get(ApplicationData.customerAccountData.indexOf(toAcc))
+							.setCurrentBalance(toUpdatedBalance);
 
-				System.out.println("Transaction successful!");
-				System.out.println("Your current balance is : "+fromUpdatedBalance);
-				return true;
-			}else{
-				System.out.println("You do not have sufficient funds!");
-				return false;
-			}
+					ApplicationData.customerAccountData.get(ApplicationData.customerAccountData.indexOf(toAcc))
+							.getPreviousTransactions().add(toAccTransaction);
+
+					// debit the amount from sender
+					float fromUpdatedBalance = fromAcc.getCurrentBalance() - amount;
+					// add transaction details in sender.
+					Transaction fromAccTransaction = new Transaction(fromCustomerAccountNumber, toCustomerAccountNumber,
+							amount, "debit", fromCurrentBalance, fromUpdatedBalance);
+
+					ApplicationData.customerAccountData.get(ApplicationData.customerAccountData.indexOf(fromAcc))
+							.setCurrentBalance(fromUpdatedBalance);
+
+					ApplicationData.customerAccountData.get(ApplicationData.customerAccountData.indexOf(fromAcc))
+							.getPreviousTransactions().add(fromAccTransaction);
+
+					System.out.println("Transaction successful!");
+					System.out.println("Your current balance is : " + fromUpdatedBalance);
+					return true;
+				} else {
+					System.out.println("You do not have sufficient funds!");
+					return false;
+				}
+			} 
+		}else {
+			System.out.println("Account Number is Incorrect!");
 		}
 
 		return false;
 	}
 
-	public static ArrayList<Transaction> getTransactionDetails(int accountNumber){
-		
-		//if returns null, then accountNumber must be invalid
-		
-		for(CustomerAccount custAcc:ApplicationData.customerAccountData){
-			
-			if(custAcc.getAccountNumber()== accountNumber){
+	public static ArrayList<Transaction> getTransactionDetails(int accountNumber) {
+
+		// if returns null, then accountNumber must be invalid
+
+		for (CustomerAccount custAcc : ApplicationData.customerAccountData) {
+
+			if (custAcc.getAccountNumber() == accountNumber) {
 				return custAcc.getPreviousTransactions();
 			}
-			
+
 		}
-		
-		return  null;
-		
-		
+
+		return null;
+
 	}
 
 }

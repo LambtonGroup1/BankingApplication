@@ -1,8 +1,5 @@
 package Utils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -65,7 +62,11 @@ public class Utils {
 	}
 
 	public static boolean checkLogin(String userType, String userName, String password, Scanner sc) {
+		
 		// TODO Auto-generated method stub
+		
+		
+		
 		if (userType.equalsIgnoreCase("admin")) {
 
 			if (userName.length() > 0 && password.length() > 0) {
@@ -91,7 +92,7 @@ public class Utils {
 			}
 
 		} else if (userType.equalsIgnoreCase("customer")) {
-
+			
 			// here user name is account number
 			int accountNumber = Integer.parseInt(userName);
 
@@ -101,7 +102,8 @@ public class Utils {
 						changeTempPassword(logindetails, sc);
 						return true;
 					} else {
-						if (logindetails.getPassword().equals(password)) {
+						String decryptedPassword = ApplicationData.td.decrypt(logindetails.getPassword());
+						if (decryptedPassword.equals(password)) {
 							return true;
 						}
 					}
@@ -130,8 +132,10 @@ public class Utils {
 
 			if (currentPassword.equals(loginDetails.getPassword())) {
 				if (newPassword.equals(confirmPassword)) {
+					
+					String encryptedPassword = ApplicationData.td.encrypt(newPassword);
 					ApplicationData.customerLoginDetails.get(ApplicationData.customerLoginDetails.indexOf(loginDetails))
-							.setPassword(confirmPassword);
+							.setPassword(encryptedPassword);
 					ApplicationData.customerLoginDetails.get(ApplicationData.customerLoginDetails.indexOf(loginDetails))
 							.setTemp(false);
 					System.out.println("Password changed successfully!");
@@ -182,42 +186,4 @@ public class Utils {
 		return letters.stream().collect(Collectors.joining());
 	}
 
-	public static String getPassword(String prompt) {
-
-		String password = "";
-		ConsoleEraser consoleEraser = new ConsoleEraser();
-		System.out.print(prompt);
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		consoleEraser.start();
-		try {
-			password = in.readLine();
-		} catch (IOException e) {
-			System.out.println("Error trying to read your password!");
-			System.exit(1);
-		}
-
-		consoleEraser.halt();
-		System.out.print("\b");
-
-		return password;
-	}
-
-	private static class ConsoleEraser extends Thread {
-		private boolean running = true;
-
-		public void run() {
-			while (running) {
-				System.out.print("\b ");
-				try {
-					Thread.currentThread().sleep(1);
-				} catch (InterruptedException e) {
-					break;
-				}
-			}
-		}
-
-		public synchronized void halt() {
-			running = false;
-		}
-	}
 }
