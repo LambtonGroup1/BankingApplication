@@ -93,14 +93,20 @@ public class BankingApplication {
 			switch (choice) {
 
 			case "1":
-
+				String userName=null;
+				
+				do{
 				System.out.println("Username : ");
-				String userName = sc.nextLine();
+				userName = sc.nextLine();
+				}while(userName.length()==0);
 
 				// char[] pass = console.readPassword("Enter password");
 				// String password = pass.toString();
+				String password=null;
+				do{
 				System.out.println("Password: ");
-				String password = sc.nextLine();
+				password = sc.nextLine();
+				}while(password.length()==0);
 
 				if (Utils.checkLogin("admin", userName, password, sc)) {
 					String adminContinue = null;
@@ -149,14 +155,19 @@ public class BankingApplication {
 				boolean validUser = false;
 				int passwordTryCount = 1;
 				while (passwordTryCount < 4) {
-
-					System.out.println("Account Number: ");
+					
+					do{
+					System.out.println("Username : ");
 					customerUserName = sc.nextLine();
+					}while(customerUserName.length()==0);
 
-					// char[] custPass = console.readPassword("Enter password");
-					// String customerPassword = custPass.toString();
+					// char[] pass = console.readPassword("Enter password");
+					// String password = pass.toString();
+					String customerPassword=null;
+					do{
 					System.out.println("Password: ");
-					String customerPassword = sc.nextLine();
+					customerPassword = sc.nextLine();
+					}while(customerPassword.length()==0);
 
 					boolean flag = Utils.checkLogin("customer", customerUserName, customerPassword, sc);
 					if (flag) {

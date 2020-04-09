@@ -93,12 +93,12 @@ public class Utils {
 
 			// here user name is account number
 			int accountNumber = Integer.parseInt(userName);
-			System.out.println("AC : "+accountNumber);
+			
 			for (LoginDetails logindetails : ApplicationData.customerLoginDetails) {
 				if (logindetails.getAccountNumber() == accountNumber) {
-					System.out.println("Got account!");
+				
 					if (logindetails.isTemp()) {
-						System.out.println("In is Temp");
+						
 						changeTempPassword(logindetails, sc);
 						return true;
 					} else {
