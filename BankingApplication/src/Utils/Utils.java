@@ -62,11 +62,9 @@ public class Utils {
 	}
 
 	public static boolean checkLogin(String userType, String userName, String password, Scanner sc) {
-		
+
 		// TODO Auto-generated method stub
-		
-		
-		
+
 		if (userType.equalsIgnoreCase("admin")) {
 
 			if (userName.length() > 0 && password.length() > 0) {
@@ -92,16 +90,19 @@ public class Utils {
 			}
 
 		} else if (userType.equalsIgnoreCase("customer")) {
-			
+
 			// here user name is account number
 			int accountNumber = Integer.parseInt(userName);
-
+			System.out.println("AC : "+accountNumber);
 			for (LoginDetails logindetails : ApplicationData.customerLoginDetails) {
 				if (logindetails.getAccountNumber() == accountNumber) {
+					System.out.println("Got account!");
 					if (logindetails.isTemp()) {
+						System.out.println("In is Temp");
 						changeTempPassword(logindetails, sc);
 						return true;
 					} else {
+						System.out.println("In check password");
 						String decryptedPassword = ApplicationData.td.decrypt(logindetails.getPassword());
 						if (decryptedPassword.equals(password)) {
 							return true;
@@ -121,18 +122,26 @@ public class Utils {
 		System.out.println("In change temp password!");
 
 		do {
+			
+			String currentPassword =null;
+			do{
 			System.out.println("Current Password : ");
-			String currentPassword = sc.nextLine();
-
+			currentPassword= sc.nextLine();
+			}while(currentPassword.length()==0);
+			
+			do{
 			System.out.println("New Password : ");
 			newPassword = sc.nextLine();
+			}while(newPassword.length()==0);
 
+			do{
 			System.out.println("Confirm Password : ");
 			confirmPassword = sc.nextLine();
+			}while(confirmPassword.length()==0);
 
 			if (currentPassword.equals(loginDetails.getPassword())) {
 				if (newPassword.equals(confirmPassword)) {
-					
+
 					String encryptedPassword = ApplicationData.td.encrypt(newPassword);
 					ApplicationData.customerLoginDetails.get(ApplicationData.customerLoginDetails.indexOf(loginDetails))
 							.setPassword(encryptedPassword);
@@ -143,6 +152,8 @@ public class Utils {
 				} else {
 					System.out.println("Paswords do not match!");
 				}
+			}else{
+				System.out.println("Current Password does not match!");
 			}
 		} while (newPassword.equals(confirmPassword));
 

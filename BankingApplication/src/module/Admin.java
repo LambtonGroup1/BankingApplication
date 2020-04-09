@@ -51,6 +51,8 @@ public class Admin {
 		
 		loginDetails.setPassword(Utils.Utils.generateRandomPassword(10));
 		
+		ApplicationData.customerLoginDetails.add(loginDetails);
+		
 		
 		// Add customer account object to arraylist
 		CustomerAccount customerAccount = new CustomerAccount();
@@ -62,9 +64,6 @@ public class Admin {
 		//send email to customer
 		Utils.EmailUtil.sendFromGMail(customer.getCustomerEmail(),loginDetails);
 
-		// add CustomerAccount objec whenever we create a new customer.
-		CustomerAccount custAcc = new CustomerAccount();
-		ApplicationData.customerAccountData.add(custAcc);
 		return true;
 	}
 
