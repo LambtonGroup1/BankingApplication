@@ -134,20 +134,20 @@ public class Utils {
 				currentPassword = String.valueOf(pass);
 			} while (currentPassword.length() == 0);
 			
-			System.out.println("Current Password :"+currentPassword);
+			
 			do {
 				char[] pass = console.readPassword("Enter New Password :");
 				newPassword = String.valueOf(pass);
 			} while (newPassword.length() == 0);
 			
-			System.out.println("New Password :"+newPassword);
+			
 
 			do {
 				char[] pass = console.readPassword("Enter Confirm Password :");
 				confirmPassword = String.valueOf(pass);
 			} while (confirmPassword.length() == 0);
 			
-			System.out.println("Confirm Password:"+confirmPassword);
+			
 
 			if (currentPassword.equals(loginDetails.getPassword())) {
 				if (newPassword.equals(confirmPassword)) {
