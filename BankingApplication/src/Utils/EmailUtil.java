@@ -9,7 +9,7 @@ import models.LoginDetails;
 
 public class EmailUtil {
 
-	public static void sendFromGMail(String to, LoginDetails loginDetails) {
+	public static void sendFromGMail(String to, String customerName, LoginDetails loginDetails) {
 		Properties props = System.getProperties();
 		String host = "smtp.gmail.com";
 		props.put("mail.smtp.starttls.enable", "true");
@@ -30,7 +30,7 @@ public class EmailUtil {
 
 			String subject = " Welcome to the Bank";
 
-			String body = "Hi " + loginDetails.getAccountNumber()
+			String body = "Hi " + customerName+","
 					+ "\nWelcome to the bank. Please use below credentials to login into your" + "account.\n"
 					+ "USERNAME : " + loginDetails.getAccountNumber() + "\n" + "PASSWORD : "
 					+ loginDetails.getPassword() + "\n"

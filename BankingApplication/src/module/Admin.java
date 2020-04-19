@@ -62,7 +62,7 @@ public class Admin {
 		ApplicationData.customerAccountData.add(customerAccount);
 		
 		//send email to customer
-		Utils.EmailUtil.sendFromGMail(customer.getCustomerEmail(),loginDetails);
+		Utils.EmailUtil.sendFromGMail(customer.getCustomerEmail(),customer.getCustomerName(),loginDetails);
 
 		return true;
 	}

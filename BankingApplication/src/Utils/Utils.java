@@ -1,6 +1,7 @@
 package Utils;
 
 import java.security.SecureRandom;
+import java.io.Console;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -13,6 +14,8 @@ import java.util.stream.Collectors;
 
 import config.Configurations;
 import data.ApplicationData;
+import models.Customer;
+import models.CustomerAccount;
 import models.LoginDetails;
 
 public class Utils {
@@ -118,26 +121,33 @@ public class Utils {
 	private static void changeTempPassword(LoginDetails loginDetails, Scanner sc) {
 		String newPassword = null;
 		String confirmPassword = null;
+		
+		Console console = System.console();
 
-		System.out.println("In change temp password!");
+		System.out.println("In Change Password Console : ");
 
 		do {
-			
 			String currentPassword =null;
-			do{
-			System.out.println("Current Password : ");
-			currentPassword= sc.nextLine();
-			}while(currentPassword.length()==0);
 			
-			do{
-			System.out.println("New Password : ");
-			newPassword = sc.nextLine();
-			}while(newPassword.length()==0);
+			do {
+				char[] pass = console.readPassword("Enter Current Password :");
+				currentPassword = String.valueOf(pass);
+			} while (currentPassword.length() == 0);
+			
+			System.out.println("Current Password :"+currentPassword);
+			do {
+				char[] pass = console.readPassword("Enter New Password :");
+				newPassword = String.valueOf(pass);
+			} while (newPassword.length() == 0);
+			
+			System.out.println("New Password :"+newPassword);
 
-			do{
-			System.out.println("Confirm Password : ");
-			confirmPassword = sc.nextLine();
-			}while(confirmPassword.length()==0);
+			do {
+				char[] pass = console.readPassword("Enter Confirm Password :");
+				confirmPassword = String.valueOf(pass);
+			} while (confirmPassword.length() == 0);
+			
+			System.out.println("Confirm Password:"+confirmPassword);
 
 			if (currentPassword.equals(loginDetails.getPassword())) {
 				if (newPassword.equals(confirmPassword)) {
@@ -195,6 +205,60 @@ public class Utils {
 		List<String> letters = Arrays.asList(string.split(""));
 		Collections.shuffle(letters);
 		return letters.stream().collect(Collectors.joining());
+	}
+	
+	public static void addTempCustomerData() {
+		// temp data 1 for testing
+				Customer tempCust = new Customer();
+
+				tempCust.setCustomerAccountNumber(1234);
+				tempCust.setCustomerName("Satish");
+				tempCust.setCustomerEmail("satishsilveri.5@gmail.com");
+				tempCust.setCustomerPhoneNumber(1234566789);
+				tempCust.setCustomerPincode("m3a3b2");
+				tempCust.setCustomerAddress("North York");
+
+				ApplicationData.customers.add(tempCust);
+
+				LoginDetails tempDetails = new LoginDetails();
+				tempDetails.setAccountNumber(1234);
+				tempDetails.setPassword("$57*90");
+				tempDetails.setTemp(true);
+
+				CustomerAccount customerAccount = new CustomerAccount();
+
+				customerAccount.setAccountNumber(1234);
+
+				ApplicationData.customerAccountData.add(customerAccount);
+
+				ApplicationData.customerLoginDetails.add(tempDetails);
+				// end temp data 1
+
+				// temp data 2 for testing
+				Customer tempCust1 = new Customer();
+
+				tempCust1.setCustomerAccountNumber(5678);
+				tempCust1.setCustomerName("Satish1");
+				tempCust1.setCustomerEmail("satishsilveri.5@gmail.com");
+				tempCust1.setCustomerPhoneNumber(1234566789);
+				tempCust1.setCustomerPincode("m3a3b2");
+				tempCust1.setCustomerAddress("North York");
+
+				ApplicationData.customers.add(tempCust1);
+
+				LoginDetails tempDetails1 = new LoginDetails();
+				tempDetails1.setAccountNumber(5678);
+				tempDetails1.setPassword("$57*90");
+				tempDetails1.setTemp(true);
+
+				CustomerAccount customerAccount1 = new CustomerAccount();
+
+				customerAccount1.setAccountNumber(5678);
+
+				ApplicationData.customerAccountData.add(customerAccount1);
+
+				ApplicationData.customerLoginDetails.add(tempDetails1);
+				// end temp data 2
 	}
 
 }

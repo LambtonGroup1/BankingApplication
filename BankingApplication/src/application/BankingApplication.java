@@ -29,57 +29,8 @@ public class BankingApplication {
 		// the modules.
 		Scanner sc = new Scanner(System.in);
 
-		// temp data 1 for testing
-		Customer tempCust = new Customer();
-
-		tempCust.setCustomerAccountNumber(1234);
-		tempCust.setCustomerName("Satish");
-		tempCust.setCustomerEmail("satishsilveri.5@gmail.com");
-		tempCust.setCustomerPhoneNumber(1234566789);
-		tempCust.setCustomerPincode("m3a3b2");
-		tempCust.setCustomerAddress("North York");
-
-		ApplicationData.customers.add(tempCust);
-
-		LoginDetails tempDetails = new LoginDetails();
-		tempDetails.setAccountNumber(1234);
-		tempDetails.setPassword("$57*90");
-		tempDetails.setTemp(true);
-
-		CustomerAccount customerAccount = new CustomerAccount();
-
-		customerAccount.setAccountNumber(1234);
-
-		ApplicationData.customerAccountData.add(customerAccount);
-
-		ApplicationData.customerLoginDetails.add(tempDetails);
-		// end temp data 1
-
-		// temp data 2 for testing
-		Customer tempCust1 = new Customer();
-
-		tempCust1.setCustomerAccountNumber(5678);
-		tempCust1.setCustomerName("Satish1");
-		tempCust1.setCustomerEmail("satishsilveri.5@gmail.com");
-		tempCust1.setCustomerPhoneNumber(1234566789);
-		tempCust1.setCustomerPincode("m3a3b2");
-		tempCust1.setCustomerAddress("North York");
-
-		ApplicationData.customers.add(tempCust1);
-
-		LoginDetails tempDetails1 = new LoginDetails();
-		tempDetails1.setAccountNumber(5678);
-		tempDetails1.setPassword("Bank@5678");
-		tempDetails1.setTemp(false);
-
-		CustomerAccount customerAccount1 = new CustomerAccount();
-
-		customerAccount1.setAccountNumber(5678);
-
-		ApplicationData.customerAccountData.add(customerAccount1);
-
-		ApplicationData.customerLoginDetails.add(tempDetails1);
-		// end temp data 2
+		//add temp data
+		Utils.addTempCustomerData();
 
 		String ch = null;
 
@@ -102,14 +53,11 @@ public class BankingApplication {
 				} while (userName.length() == 0);
 
 				String password=null;
-//				do{
-//				System.out.println("Password: ");
-//				password = sc.nextLine();
-//				}while(password.length()==0);
+
 
 				do {
-					char[] pass = console.readPassword("Enter password");
-					password = pass.toString();
+					char[] pass = console.readPassword("Enter password :");
+					password = String.valueOf(pass);
 				} while (password.length() == 0);
 
 				if (Utils.checkLogin("admin", userName, password, sc)) {
@@ -169,8 +117,8 @@ public class BankingApplication {
 					// String password = pass.toString();
 					String customerPassword = null;
 					do {
-						System.out.println("Password: ");
-						customerPassword = sc.nextLine();
+						char[] pass = console.readPassword("Enter password :");
+						customerPassword = String.valueOf(pass);
 					} while (customerPassword.length() == 0);
 
 					boolean flag = Utils.checkLogin("customer", customerUserName, customerPassword, sc);
