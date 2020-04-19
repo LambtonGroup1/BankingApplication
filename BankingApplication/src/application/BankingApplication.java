@@ -9,6 +9,7 @@ import models.Customer;
 import models.CustomerAccount;
 import models.LoginDetails;
 import models.Transaction;
+import java.io.Console;
 
 public class BankingApplication {
 
@@ -89,24 +90,27 @@ public class BankingApplication {
 			System.out.println("2. Customer");
 			System.out.println("Please enter your choice : ");
 			String choice = sc.nextLine();
-
+			Console console = System.console();
 			switch (choice) {
 
 			case "1":
-				String userName=null;
-				
-				do{
-				System.out.println("Username : ");
-				userName = sc.nextLine();
-				}while(userName.length()==0);
+				String userName = null;
 
-				// char[] pass = console.readPassword("Enter password");
-				// String password = pass.toString();
+				do {
+					System.out.println("Username : ");
+					userName = sc.nextLine();
+				} while (userName.length() == 0);
+
 				String password=null;
-				do{
-				System.out.println("Password: ");
-				password = sc.nextLine();
-				}while(password.length()==0);
+//				do{
+//				System.out.println("Password: ");
+//				password = sc.nextLine();
+//				}while(password.length()==0);
+
+				do {
+					char[] pass = console.readPassword("Enter password");
+					password = pass.toString();
+				} while (password.length() == 0);
 
 				if (Utils.checkLogin("admin", userName, password, sc)) {
 					String adminContinue = null;
@@ -155,19 +159,19 @@ public class BankingApplication {
 				boolean validUser = false;
 				int passwordTryCount = 1;
 				while (passwordTryCount < 4) {
-					
-					do{
-					System.out.println("Username : ");
-					customerUserName = sc.nextLine();
-					}while(customerUserName.length()==0);
+
+					do {
+						System.out.println("Username : ");
+						customerUserName = sc.nextLine();
+					} while (customerUserName.length() == 0);
 
 					// char[] pass = console.readPassword("Enter password");
 					// String password = pass.toString();
-					String customerPassword=null;
-					do{
-					System.out.println("Password: ");
-					customerPassword = sc.nextLine();
-					}while(customerPassword.length()==0);
+					String customerPassword = null;
+					do {
+						System.out.println("Password: ");
+						customerPassword = sc.nextLine();
+					} while (customerPassword.length() == 0);
 
 					boolean flag = Utils.checkLogin("customer", customerUserName, customerPassword, sc);
 					if (flag) {
@@ -223,7 +227,7 @@ public class BankingApplication {
 								System.out.println("----------------------------------");
 								System.out.println("Transaction ID : " + transactions.get(i).getTransactionId());
 								System.out.println("From : " + transactions.get(i).getFromCustomerId());
-								System.out.println("To : "+transactions.get(i).getToCustomerNumber());
+								System.out.println("To : " + transactions.get(i).getToCustomerNumber());
 								System.out.println("Amount : " + transactions.get(i).getTransactionAmount());
 								System.out.println("Transaction Type : " + transactions.get(i).getTransactionType());
 								System.out.println("Previous Balance : " + transactions.get(i).getPreviousBalance());
@@ -234,7 +238,7 @@ public class BankingApplication {
 							}
 
 							break;
-						
+
 						case "4":
 							break;
 						default:
