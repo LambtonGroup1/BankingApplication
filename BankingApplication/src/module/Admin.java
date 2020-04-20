@@ -124,44 +124,4 @@ public class Admin {
 			customer.setCustomerPincode(CustomerPincode);
 		}
 	}
-
-	public static void main(String[] args) {
-
-		int operation;
-		String newcustomer;
-		int Accnum;
-		System.out.println(
-				"Please select the operation you wish to perform\n1. Add the Cutomer\n2. Delete the Customer\n3. Update the Customer");
-		Scanner sc = new Scanner(System.in);
-		operation = sc.nextInt();
-		switch (operation) {
-		case 1:
-			do {
-				addCustomer(sc);
-				System.out.println("Do you wish to insert another Customer y/n?");
-				newcustomer = sc.nextLine();
-			} while (newcustomer.equalsIgnoreCase("y"));
-			break;
-
-		case 2:
-			do {
-				System.out.println("Please provide the Account number of the Customer to be deleted");
-				Accnum = sc.nextInt();
-				deleteCustomer(Accnum);
-				System.out.println("Do you wish to delete any other Customer y/n?");
-				newcustomer = sc.nextLine();
-			} while (newcustomer.equalsIgnoreCase("y"));
-			break;
-
-		case 3:
-			do {
-				System.out.println("Please provide the Account number of the Customer to be updated");
-				Accnum = sc.nextInt();
-				updateCustomer(Accnum, sc);
-				System.out.println("Do you wish to update any other Customer y/n?");
-				newcustomer = sc.nextLine();
-			} while (newcustomer.equalsIgnoreCase("y"));
-			break;
-		}
-	}
 }
